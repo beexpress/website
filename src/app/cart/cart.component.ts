@@ -17,7 +17,8 @@ export class CartComponent implements OnInit {
 
 
 
-  title: string;
+  title : string = "Este é um título!";
+
   constructor(public _cartService: CartService) {
     this.lat_cd = "-23.5443056";
     this.lng_cd = "-46.678062";
