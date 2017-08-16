@@ -11,6 +11,7 @@ export class AppManager {
       throw new Error("ERROR: there is already one instance of this class");
     }
     AppManager._instance = this;
+    this.orderList = new Array<Order>();
   }
 
   public static get instance(){

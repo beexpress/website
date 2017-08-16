@@ -4,18 +4,38 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import { OrdersListComponent } from './orders-list/orders-list.component';
+import { CollapseModule } from 'ngx-bootstrap';
+import { NavComponent } from './nav/nav.component';
+import { FooterComponent } from './footer/footer.component';
+import { ListOrdersComponent } from './list-orders/list-orders.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const appRoutes: Routes = [
+  { path: 'orders', component: ListOrdersComponent },
+  { path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
+  //{ path: '**', component: PageNotFoundComponent }
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
-    OrdersListComponent
+    NavComponent,
+    FooterComponent,
+    ListOrdersComponent
   ],
   imports: [
     BrowserModule,
     HttpModule,
-    NgbModule.forRoot()
+    CollapseModule,
+    NgbModule.forRoot(),
+    RouterModule.forRoot(
+      appRoutes,
+      { enableTracing: true } // <-- debugging purposes only
+    )
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -29,6 +29,11 @@
       }
     }
   ],
+ "styles": [
+    "../node_modules/bootstrap/dist/css/bootstrap.css",
+
+    "style.css"
+  ],
   "e2e": {
     "protractor": {
       "config": "./protractor.conf.js"

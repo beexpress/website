@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from "./cart.service";
 import {Coordinates, Client, AddressData, Order} from "../models/coordinates";
+import {AppManager} from "../utils/app-manager";
 
 @Component({
   selector: 'app-cart',
@@ -156,8 +157,10 @@ export class CartComponent implements OnInit {
       //console.log(json);
       this._cartService.post("https://staging.loggi.com/graphql?", json.replace(/(\r\n|\n|\r|\0)/gm,"")).then(response => {
         console.log(response);
-        this.client.order = new Order();
-        this.client.order.pk = response.data.createOrderInquiry.inquiry.pk;
+        var order = new Order();
+        order.pk = response.data.createOrderInquiry.inquiry.pk;
+        order.client = this.client;
+        AppManager.instance.orderList.push(order);
       }).catch(error => {
         console.log(error);
       });
