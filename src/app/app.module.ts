@@ -4,11 +4,13 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { OrdersListComponent } from './orders-list/orders-list.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CartComponent
+    CartComponent,
+    OrdersListComponent
   ],
   imports: [
     BrowserModule,
