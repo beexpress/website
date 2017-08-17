@@ -1,3 +1,20 @@
 .product_view .modal-dialog{max-width: 800px; width: 100%;}
 .pre-cost{text-decoration: line-through; color: #a5a5a5;}
-.space-ten{padding: 5px 0;}
+.space-ten{padding: 0px 0;}
+
+
+.img-responsive{
+  padding-bottom: 50px;
+}
+
+.btn-primary  {
+  color: #fff;
+  background-color: #21d832 !important;
+  border-color: #FFF;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #21d832 !important;
+  border-color: #FFF;
+}
