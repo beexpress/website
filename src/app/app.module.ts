@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { CollapseModule } from 'ngx-bootstrap';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
@@ -15,6 +14,7 @@ import {AngularFireDatabaseModule} from "angularfire2/database";
 import {CartService} from "./cart/cart.service";
 import {AppManager} from "./utils/app-manager";
 import {FotoModule} from './foto/foto.module';
+import { MapComponent } from './map/map.component';
 
 
 const appRoutes: Routes = [
@@ -33,14 +33,14 @@ const appRoutes: Routes = [
     CartComponent,
     NavComponent,
     FooterComponent,
-    ListOrdersComponent
+    ListOrdersComponent,
+    MapComponent
   ],
   imports: [
     BrowserModule,
     FotoModule,
     HttpModule,
     CollapseModule,
-    NgbModule.forRoot(),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
