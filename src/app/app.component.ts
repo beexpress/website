@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {AngularFireDatabase} from "angularfire2/database";
+import {AppManager} from "./utils/app-manager";
 
 
 @Component({
@@ -8,4 +10,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  constructor(db: AngularFireDatabase){
+    AppManager.instance.orderList = db.list('/orders');
+  }
 }

@@ -8,13 +8,18 @@
     <th>#</th>
     <th>Name</th>
     <th>Primary Key</th>
+    <th>Confirma?</th>
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let x of getOrderList()">
-    <th scope="row">1</th>
-    <td>{{x.client.name}}</td>
-    <td>{{x.pk}}</td>
+  <tr *ngFor="let x of getOrderList() | async ; let i = index">
+    <th scope="row">{{i+1}}</th>
+    <td>{{x.order.client.name}}</td>
+    <td>{{x.order.pk}}</td>
+    <td>
+      <button *ngIf="!x.order.isConfirmed; else orderConfirmed" class="btn btn-success" (click)="this.confirmOrder(x.$key,x.order)">Confirmar pedido</button>
+      <ng-template #orderConfirmed>Pedido já confirmado!</ng-template>
+    </td>
   </tr>
   </tbody>
 </table>

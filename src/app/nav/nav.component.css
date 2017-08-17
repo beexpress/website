@@ -9,3 +9,11 @@
   color: #000;
 
 }
+
+#logo{
+  width: 470px;
+  height: 153px;
+  background: url(../../assets/img/logo_branca_bee.png) no-repeat;
+  -webkit-background-size: cover;
+  background-size: cover;
+}

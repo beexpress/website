@@ -30,8 +30,17 @@ export class Order {
 
   public client : Client;
   public pk : number;
+  public isConfirmed : boolean;
+  public shipping : OrderShip;
+
+}
+
+export class OrderShip {
+  constructor(){}
+  public id : number;
+  public eta : number;
   public orderPrice : number;
-  public shippingId : number;
+
 }
 
 export class AddressData{

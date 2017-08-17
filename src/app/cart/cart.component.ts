@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {CartService} from "./cart.service";
 import {Coordinates, Client, AddressData, Order} from "../models/coordinates";
 import {AppManager} from "../utils/app-manager";
+import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-cart',
@@ -21,16 +23,17 @@ export class CartComponent implements OnInit {
   title : string = "Est!";
   client: Client;
   shippintType : number;
+  orders : FirebaseListObservable<any>;
 
 
-  constructor(public _cartService: CartService) {
+  constructor(public _cartService: CartService, db: AngularFireDatabase) {
     this.lat_cd = "-23.5443056";
     this.lng_cd = "-46.678062";
     this.client = new Client(
-      "Josefino",
-      "01222010",
-      "Rua Vergueiro",
-      "430",
+      "Ale",
+      "05409012",
+      "Rua Oscar Freire",
+      "2379",
       "São Paulo",
       "São Paulo"
     );
@@ -41,14 +44,41 @@ export class CartComponent implements OnInit {
       this.cd_addressData.toString();
     });
 
-
-
-
+    this.orders = db.list('/orders');
   }
 
 
 
   ngOnInit() {
+
+    var a = `query {
+              searchOrders(term: "", status: in_progress) {
+                edges {
+                  node {
+                    pk
+                    status
+                    driver {
+                      fullName
+                    }
+                    created
+                    currentDriverPosition {
+                      lat
+                      lng
+                      bearing
+                    }
+                  }
+                }
+              }
+            }
+            `
+    var json = JSON.stringify({
+      query: a
+    });
+    this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
+      console.log(response);
+    }).catch(error => {
+      console.log(error);
+    });
   }
 
   estimatePrice(cep){
@@ -67,8 +97,8 @@ export class CartComponent implements OnInit {
                     city: 1
                     transportType: moto
                     points: [
-                      { lat: ${coord.lat}, lng: ${coord.lng} }
                       { lat: ${this.lat_cd}, lng: ${this.lng_cd}, hasService: false }
+                      { lat: ${coord.lat}, lng: ${coord.lng} }
                     ]
                   ) {
                     routeOptimized
@@ -95,7 +125,7 @@ export class CartComponent implements OnInit {
 
     console.log(query);
 
-    this._cartService.post("https://staging.loggi.com/graphql?", json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
+    this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
       console.log(response);
     }).catch(error => {
       console.log(error);
@@ -109,9 +139,9 @@ export class CartComponent implements OnInit {
       var query = `mutation {
           createOrderInquiry(input: {
             city: 1
-            packageType: "box"
+            packageType: "document"
             slo: ${this.shippintType}
-            clientMutationId: "test_inquiry"
+            clientMutationId: "kcf4819ds08"
             waypoints: [
               {
                 addressComplement: "Ap 34"
@@ -155,12 +185,13 @@ export class CartComponent implements OnInit {
         query: query
       });
       //console.log(json);
-      this._cartService.post("https://staging.loggi.com/graphql?", json.replace(/(\r\n|\n|\r|\0)/gm,"")).then(response => {
+      this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r|\0)/gm,"")).then(response => {
         console.log(response);
         var order = new Order();
         order.pk = response.data.createOrderInquiry.inquiry.pk;
         order.client = this.client;
-        AppManager.instance.orderList.push(order);
+
+        this.orders.push({order: order});
       }).catch(error => {
         console.log(error);
       });

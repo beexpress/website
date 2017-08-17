@@ -1,6 +1,7 @@
 <p>
   cart works!<br>
 </p>
-<button class="btn btn-primary" (click)="this.createNewOrder()">Olar</button>
+<button class="btn btn-primary" (click)="this.estimatePrice(this.client.cep)">Calcular CEP</button>
+<button class="btn btn-primary" (click)="this.createNewOrder()">Gerar Pedido</button>
 
 <app-list-orders></app-list-orders>

@@ -9,9 +9,15 @@ import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { RouterModule, Routes } from '@angular/router';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import {AngularFireDatabaseModule} from "angularfire2/database";
+import {CartService} from "./cart/cart.service";
+import {AppManager} from "./utils/app-manager";
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
+  { path: 'cart', component: CartComponent},
   { path: '',
     redirectTo: '',
     pathMatch: 'full'
@@ -35,9 +41,13 @@ const appRoutes: Routes = [
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
-    )
+
+    ),
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule, // imports firebase/database, only needed for database features
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
