@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { CartComponent } from './cart/cart.component';
-import { CollapseModule } from 'ngx-bootstrap';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ListOrdersComponent } from './list-orders/list-orders.component';
@@ -27,6 +26,7 @@ const appRoutes: Routes = [
   //{ path: '**', component: PageNotFoundComponent }
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,7 +40,6 @@ const appRoutes: Routes = [
     BrowserModule,
     FotoModule,
     HttpModule,
-    CollapseModule,
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
