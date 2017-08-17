@@ -14,6 +14,8 @@ import { environment } from '../environments/environment';
 import {AngularFireDatabaseModule} from "angularfire2/database";
 import {CartService} from "./cart/cart.service";
 import {AppManager} from "./utils/app-manager";
+import {FotoModule} from './foto/foto.module';
+
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
@@ -35,6 +37,7 @@ const appRoutes: Routes = [
   ],
   imports: [
     BrowserModule,
+    FotoModule,
     HttpModule,
     CollapseModule,
     NgbModule.forRoot(),
