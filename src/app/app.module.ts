@@ -14,15 +14,19 @@ import {CartService} from "./cart/cart.service";
 import {AppManager} from "./utils/app-manager";
 import {FotoModule} from './foto/foto.module';
 import { MapComponent } from './map/map.component';
+import { HomeComponent } from './home/home.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
   { path: 'cart', component: CartComponent},
   { path: '',
-    redirectTo: '',
+    redirectTo: 'home',
     pathMatch: 'full'
-  }
+  },
+  { path: 'home', component: HomeComponent},
+  { path: 'map', component: MapComponent}
   //{ path: '**', component: PageNotFoundComponent }
 ];
 
@@ -34,12 +38,16 @@ const appRoutes: Routes = [
     NavComponent,
     FooterComponent,
     ListOrdersComponent,
-    MapComponent
+    MapComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     FotoModule,
     HttpModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyAt19EYB5ucFJvuftbdYtplhQrq60yP4BI'
+    }),
     RouterModule.forRoot(
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
