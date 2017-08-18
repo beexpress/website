@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {CartService} from "./cart.service";
 import {Coordinates, Client, AddressData, Order} from "../models/coordinates";
 import {AppManager} from "../utils/app-manager";
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {environment} from "../../environments/environment";
 import {ActivatedRoute} from "@angular/router";
+import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-cart',
@@ -24,13 +25,22 @@ export class CartComponent implements OnInit {
   sub: any;
 
 
+
+
   private cd_addressData : AddressData;
 
   //properties
   title : string = "Est!";
+  @Input() inputCep;
+  @Input() inputName;
+  @Input() inputStreet;
+  @Input()  inputStreetNum;
+  @Input()  inputState;
+  @Input()  inputCity;
   client: Client;
   shippintType : number;
   orders : FirebaseListObservable<any>;
+  frete: number = 0;
 
 
   constructor(public _cartService: CartService, public db: AngularFireDatabase, private route: ActivatedRoute) {
@@ -54,7 +64,10 @@ export class CartComponent implements OnInit {
 
 
 
+
+
   ngOnInit() {
+
     // var a = `query {
     //           searchOrders(term: "", status: in_progress) {
     //             edges {
@@ -87,6 +100,16 @@ export class CartComponent implements OnInit {
       this.setProduct(params['id']);
 
       // In a real app: dispatch action to load the details here.
+    });
+  }
+
+  completeAddress(cep){
+    var url = "https://viacep.com.br/ws/"+cep+"/json/";
+    this._cartService.get(url).then(response => {
+      this.inputCep = response.cep;
+      this.inputCity = response.localidade;
+      this.inputStreet = response.logradouro;
+      console.log("DONE");
     });
   }
 
@@ -255,5 +278,6 @@ export class CartComponent implements OnInit {
     });
 
   }
+
 
 }

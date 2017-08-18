@@ -20,10 +20,13 @@ import { AgmCoreModule } from 'angular2-google-maps/core';
 import {DirectionsMapDirective} from './map/map.directive';
 import {ItemComponent} from "./item/item.component";
 import { CatalogComponent } from './catalog/catalog.component';
+import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
   { path: 'cart/:id', component: CartComponent},
+  { path: 'detail/:id', component: ProductDetailComponent},
   { path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -45,10 +48,12 @@ const appRoutes: Routes = [
     HomeComponent,
     DirectionsMapDirective,
     ItemComponent,
-    CatalogComponent
+    CatalogComponent,
+    ProductDetailComponent
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     FotoModule,
     HttpModule,
     NgbModule.forRoot(),

@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="col col-md-8">
+    <form>
+      <legend>Endereço</legend>
+      <div class="form-group">
+        <div class="col-md-6">
+          <input type="text" name="name" class="form-control" placeholder="Nome" [(ngModel)]="inputName" required>
+        </div>
+        <div class="col-md-6">
+          <input type="text" name="email" class="form-control" placeholder="Email" required>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="form-group">
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="cep" placeholder="CEP" [(ngModel)]="inputCep" (ngModelChange)="completeAddress($event)" required>
+        </div>
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="city" placeholder="Cidade" [(ngModel)]="inputCity" required>
+        </div>
+      </div>
+      <br>
+      <br>
+      <div class="form-group">
+        <div class="col-md-6">
+          <input type="text" class="form-control" name="address" placeholder="Endereço" [(ngModel)]="inputStreet" required>
+        </div>
+        <div class="col-md-2">
+          <input type="number" class="form-control" name="number" min="0" placeholder="Número" [(ngModel)]="inputStreetNum" required>
+        </div>
+        <div class="col-md-4">
+          <input type="text" class="form-control" name="compl" placeholder="Complemento" required>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col col-lg-4">
+    <div class="row">
+      <div class="col-sm-4">
+        <img src="./assets/img/products/{{prod.image}}.jpg" class="img-responsive">
+      </div>
+      <div class="col-sm-8">
+        <p style="font-weight: bold">
+          {{prod.name}}
+        </p>
+      </div>
+    </div>
+    <hr>
+
+    <div class="row">
+
+    </div>
+    <div class="row">
+      <table class="table table-responsive">
+        <tbody>
+        <tr>
+          <td style="font-weight: bold;">
+            Preço
+          </td>
+          <td style="text-align: right">
+            R${{+prod.price.toFixed(2).replace('.',',')}}
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            Frete
+          </td>
+          <td style="text-align: right">
+            R${{frete.toFixed(2).replace('.',',')}}
+          </td>
+        </tr>
+        <tr>
+          <td style="font-weight: bold;">
+            TOTAL
+          </td>
+          <td style="text-align: right">
+            R${{(frete+prod.price).toFixed(2).replace('.',',')}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<hr>
