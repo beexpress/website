@@ -15,8 +15,6 @@ import {environment} from "../../environments/environment";
 export class CartComponent implements OnInit {
 
 
-  private lat_cd : string;
-  private lng_cd : string;
   private cd_addressData : AddressData;
 
   //properties
@@ -26,9 +24,7 @@ export class CartComponent implements OnInit {
   orders : FirebaseListObservable<any>;
 
 
-  constructor(public _cartService: CartService, db: AngularFireDatabase) {
-    this.lat_cd = "-23.5443056";
-    this.lng_cd = "-46.678062";
+  constructor(public _cartService: CartService, public db: AngularFireDatabase) {
     this.client = new Client(
       "Ale",
       "05409012",
@@ -97,7 +93,7 @@ export class CartComponent implements OnInit {
                     city: 1
                     transportType: moto
                     points: [
-                      { lat: ${this.lat_cd}, lng: ${this.lng_cd}, hasService: false }
+                      { lat: ${AppManager.instance.distCenter.lat}, lng: ${AppManager.instance.distCenter.lng}, hasService: false }
                       { lat: ${coord.lat}, lng: ${coord.lng} }
                     ]
                   ) {
@@ -190,8 +186,24 @@ export class CartComponent implements OnInit {
         var order = new Order();
         order.pk = response.data.createOrderInquiry.inquiry.pk;
         order.client = this.client;
+        order.id = "";
+        while(order.id === ""){
+          var key = AppManager.instance.makeid();
+          var isEqual = false;
+          this.orders.forEach(x => {
+            if( order.id == key){
+              isEqual = true;
+            }
+          });
+
+          if(!isEqual){
+            order.id = key;
+          }
+        }
+
 
         this.orders.push({order: order});
+
       }).catch(error => {
         console.log(error);
       });
@@ -207,6 +219,7 @@ export class CartComponent implements OnInit {
           addressData.formattedAdrress = response.results[0].formatted_address;
           addressData.geometry = response.results[0].geometry;
           addressData.types = response.results[0].types;
+          addressData.placeId = response.results[0].place_id;
           return addressData;
         });
 

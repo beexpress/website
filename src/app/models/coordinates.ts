@@ -28,6 +28,7 @@ export class Client {
 export class Order {
   constructor(){}
 
+  public id : string;
   public client : Client;
   public pk : number;
   public isConfirmed : boolean;
@@ -48,6 +49,7 @@ export class AddressData{
   public formattedAdrress : string;
   public geometry : Geometry;
   public types : [string];
+  public placeId : string;
 
   toString(){
     var acStr = "";

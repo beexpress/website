@@ -3,6 +3,7 @@
  */
 import { Directive,  Input, Output } from '@angular/core';
 import {GoogleMapsAPIWrapper} from "angular2-google-maps/core";
+import {CartService} from "../cart/cart.service";
 
 
 declare var google: any;
@@ -25,9 +26,13 @@ export class DirectionsMapDirective {
   constructor (private gmapsApi: GoogleMapsAPIWrapper) {}
   updateDirections(){
     this.gmapsApi.getNativeMap().then(map => {
-      if(!this.originPlaceId || !this.destinationPlaceId ){
+
+
+      if(!this.origin || !this.destination ){
         return;
       }
+      console.log(this.origin);
+      console.log(this.destination);
 
       var directionsService = new google.maps.DirectionsService;
       var me = this;
@@ -38,7 +43,7 @@ export class DirectionsMapDirective {
         polylineOptions: {
           strokeWeight: 8,
           strokeOpacity: 0.7,
-          strokeColor:  '#00468c'
+          strokeColor:  '#2c8c48'
         }
       });
       this.directionsDisplay.setDirections({routes: []});
