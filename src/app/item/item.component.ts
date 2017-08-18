@@ -1,19 +1,29 @@
-import {ChangeDetectionStrategy, Component, Input} from "@angular/core";
+import {ChangeDetectionStrategy, Component, Input, OnInit} from "@angular/core";
+import {AppManager} from "../utils/app-manager";
 
 @Component({
-  selector: 'spa-item',
+  selector: 'app-item',
   templateUrl: './item.component.html',
   styleUrls: ['./item.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ItemComponent {
+export class ItemComponent implements OnInit {
 
-  @Input() public id: number;
-  @Input() public name: string;
-  @Input() public price: number;
-  @Input() public currency: string;
 
-  public getCurrency(): string {
-    return 'USD';
-  }
+  @Input()
+  public product: any;
+
+  public id: number;
+  public name: string;
+  public price: number;
+  public image: string;
+
+
+  constructor() {}
+  ngOnInit() {
+    this.name = this.product.name;
+    this.price = this.product.price;
+    this.image = this.product.image;
+}
+
 }

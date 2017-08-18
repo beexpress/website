@@ -12,5 +12,6 @@ export class AppComponent {
   title = 'app';
   constructor(db: AngularFireDatabase){
     AppManager.instance.orderList = db.list('/orders');
+    AppManager.instance.productsList = db.list('/products');
   }
 }

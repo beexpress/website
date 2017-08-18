@@ -6,6 +6,7 @@ export class AppManager {
   private static _instance : AppManager;
 
   public orderList : FirebaseListObservable<any>;
+  public productsList : FirebaseListObservable<any>;
   public distCenter : Coordinates;
   public distPlaceId : string = "ChIJRfWSvUlYzpQR7aW_XmUmHm8";
 
@@ -28,13 +29,13 @@ export class AppManager {
   }
 
   public makeid() {
-  var text = "";
-  var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    var text = "";
+    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-  for (var i = 0; i < 8; i++)
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
+    for (var i = 0; i < 8; i++)
+      text += possible.charAt(Math.floor(Math.random() * possible.length));
 
-  return text;
-}
+    return text;
+  }
 
 }

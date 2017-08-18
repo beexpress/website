@@ -18,6 +18,8 @@ import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 import { AgmCoreModule } from 'angular2-google-maps/core';
 import {DirectionsMapDirective} from './map/map.directive';
+import {ItemComponent} from "./item/item.component";
+import { CatalogComponent } from './catalog/catalog.component';
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
@@ -41,7 +43,9 @@ const appRoutes: Routes = [
     ListOrdersComponent,
     MapComponent,
     HomeComponent,
-    DirectionsMapDirective
+    DirectionsMapDirective,
+    ItemComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
