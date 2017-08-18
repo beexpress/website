@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <span class="glyphicon glyphicon-shopping-cart" style="color: #59fa84; font-size: 64px; text-align: center; display: block"></span>
+        <br>
+        <p style="text-align: center">
+        Seu pedido já foi confirmado! E está em preparo.
+
+        Você poded acompanhá-lo através do link abaixo
+        </p>
+      </div>
+      <div class="panel-footer">
+        <a style="text-align: center; display: block;" [routerLink]="['/map/'+orderId]">http://beexpres.com/map/{{orderId}}</a>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-3"></div>
+</div>

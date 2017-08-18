@@ -10,6 +10,7 @@ import {ActivatedRoute} from "@angular/router";
 export class ProductDetailComponent implements OnInit {
 
   prod: {
+    id: any;
     name: any;
     price: any;
     image: any;
@@ -33,6 +34,7 @@ export class ProductDetailComponent implements OnInit {
       snapshots.forEach(prod => {
         if(id === prod.$key){
           this.prod = {
+            id: prod.$key,
             name: prod.name,
             price: prod.price,
             image: prod.image,

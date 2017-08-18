@@ -1,20 +1,22 @@
-  <div class="thumbnail" style="height: 450px;">
+  <div class="thumbnail" style="height: 430px;">
     <img class="img-responsive" src="./assets/img/products/{{image}}.jpg" style="height: 250px;">
     <div class="caption">
       <p>{{name}}</p>
     </div>
-    <div class="ratings">
-      <p>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-        <span class="glyphicon glyphicon-star"></span>
-      </p>
-    </div>
+    <!--<div class="ratings">-->
+      <!--<p>-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+        <!--<span class="glyphicon glyphicon-star"></span>-->
+      <!--</p>-->
+    <!--</div>-->
     <div class="space-ten"></div>
     <div class="btn-ground">
-      <h4 >R${{price}},00</h4><button type="button" class="btn btn-primary">COMPRE AQUI <i class="fa fa-shopping-cart"></i></button>
+      <h4 style="text-align: center" >R${{+price.toFixed(2).replace('.',',')}}</h4>
+      <br>
+        <button type="button" class="btn btn-success btn-group-justified" [routerLink]="['/detail/'+id]">COMPRE AQUI <i class="fa fa-shopping-cart"></i></button>
+
     </div>
-    <div class="space-ten"></div>
   </div>

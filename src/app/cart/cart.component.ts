@@ -4,8 +4,8 @@ import {Coordinates, Client, AddressData, Order} from "../models/coordinates";
 import {AppManager} from "../utils/app-manager";
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {environment} from "../../environments/environment";
-import {ActivatedRoute} from "@angular/router";
-import {FormBuilder, FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {ActivatedRoute, Router} from "@angular/router";
+
 
 @Component({
   selector: 'app-cart',
@@ -43,15 +43,8 @@ export class CartComponent implements OnInit {
   frete: number = 0;
 
 
-  constructor(public _cartService: CartService, public db: AngularFireDatabase, private route: ActivatedRoute) {
-    this.client = new Client(
-      "Ale",
-      "05409012",
-      "Rua Oscar Freire",
-      "2379",
-      "São Paulo",
-      "São Paulo"
-    );
+  constructor(public _cartService: CartService, public db: AngularFireDatabase, private route: ActivatedRoute, private router: Router) {
+
     this.shippintType = 1;
 
     this.getAdressData("Rua Maria Antonia, 76").then(x => {
@@ -120,8 +113,9 @@ export class CartComponent implements OnInit {
       this.getEstimate(coord);
       console.log("DONE");
     });
-
   }
+
+
 
   getEstimate(coord){
     var query = `query {
@@ -159,13 +153,21 @@ export class CartComponent implements OnInit {
 
     this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
       console.log(response);
+      this.frete = response.data.estimateOrder.prices[0].estimatedCost;
     }).catch(error => {
       console.log(error);
     });
   }
 
   createNewOrder(){
-
+    this.client = new Client(
+      this.inputName,
+      this.inputCep,
+      this.inputStreet,
+      ""+this.inputStreetNum,
+      this.inputCity,
+      this.inputCity
+    );
     this.getAdressData(this.client.street + ", " + this.client.street_number + " - " + this.client.city).then(x => {
       this.client.addressData = x;
       var query = `mutation {
@@ -239,6 +241,8 @@ export class CartComponent implements OnInit {
 
 
         this.orders.push({order: order});
+
+        this.router.navigate(['/confirm',order.id]);
 
       }).catch(error => {
         console.log(error);

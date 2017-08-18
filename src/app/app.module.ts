@@ -22,11 +22,13 @@ import {ItemComponent} from "./item/item.component";
 import { CatalogComponent } from './catalog/catalog.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ConfirmOrderComponent } from './confirm-order/confirm-order.component';
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
   { path: 'cart/:id', component: CartComponent},
   { path: 'detail/:id', component: ProductDetailComponent},
+  { path: 'confirm/:id', component: ConfirmOrderComponent},
   { path: '',
     redirectTo: 'home',
     pathMatch: 'full'
@@ -49,13 +51,15 @@ const appRoutes: Routes = [
     DirectionsMapDirective,
     ItemComponent,
     CatalogComponent,
-    ProductDetailComponent
+    ProductDetailComponent,
+    ConfirmOrderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     FotoModule,
     HttpModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyCmaFJhLk3oackahjAyTT01bWDDRAZ8P5c",

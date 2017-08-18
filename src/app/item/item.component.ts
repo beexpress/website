@@ -21,6 +21,7 @@ export class ItemComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
+    this.id = this.product.$key;
     this.name = this.product.name;
     this.price = this.product.price;
     this.image = this.product.image;

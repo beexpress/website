@@ -18,7 +18,7 @@
           <h5>ou R${{(+prod.price).toFixed(2).replace('.',',')}} à vista</h5>
         </div>
         <hr>
-        <button class="btn btn-success btn-group-justified btn-lg">COMPRAR</button>
+        <button class="btn btn-success btn-group-justified btn-lg" [routerLink]="['/cart/'+prod.id]">COMPRAR</button>
       </div>
     </div>
   </div>

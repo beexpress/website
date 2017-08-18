@@ -27,7 +27,7 @@
           <input type="text" class="form-control" name="address" placeholder="Endereço" [(ngModel)]="inputStreet" required>
         </div>
         <div class="col-md-2">
-          <input type="number" class="form-control" name="number" min="0" placeholder="Número" [(ngModel)]="inputStreetNum" required>
+          <input type="number" class="form-control" name="number" min="0" placeholder="Número" [(ngModel)]="inputStreetNum" (ngModelChange)="estimatePrice(inputCep)" required>
         </div>
         <div class="col-md-4">
           <input type="text" class="form-control" name="compl" placeholder="Complemento" required>
@@ -49,8 +49,17 @@
     <hr>
 
     <div class="row">
-
+      <h4 style="text-align: center">Escolha seu frete</h4>
+      <div class="btn-group btn-group-justified" data-toggle="buttons">
+        <label class="btn btn-primary active">
+          <input type="radio" name="options" id="option1" autocomplete="off" checked> Expresso
+        </label>
+        <!--<label class="btn btn-primary">-->
+          <!--<input type="radio" name="options" id="option2" autocomplete="off" disabled> Smart-->
+        <!--</label>-->
+      </div>
     </div>
+    <br>
     <div class="row">
       <table class="table table-responsive">
         <tbody>
@@ -81,6 +90,10 @@
         </tbody>
       </table>
     </div>
+    <button class="btn btn-success btn-group-justified btn-lg" *ngIf="frete > 0 ; else disabledBtn" (click)="createNewOrder()"> Finalizar </button>
+    <ng-template #disabledBtn>
+      <button class="btn btn-success btn-group-justified btn-lg" disabled="disabled"> Finalizar </button>
+    </ng-template>
   </div>
 </div>
 <hr>
