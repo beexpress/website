@@ -9,14 +9,15 @@ import { ListOrdersComponent } from './list-orders/list-orders.component';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireModule } from 'angularfire2';
 import { environment } from '../environments/environment';
-import {AngularFireDatabaseModule} from "angularfire2/database";
-import {CartService} from "./cart/cart.service";
-import {AppManager} from "./utils/app-manager";
+import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CartService} from './cart/cart.service';
+import {AppManager} from './utils/app-manager';
 import {FotoModule} from './foto/foto.module';
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
-import { AgmCoreModule } from "angular2-google-maps/core";
-import {DirectionsMapDirective} from "./map/map.directive";
+import { AgmCoreModule } from 'angular2-google-maps/core';
+import {DirectionsMapDirective} from './map/map.directive';
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
@@ -46,6 +47,7 @@ const appRoutes: Routes = [
     BrowserModule,
     FotoModule,
     HttpModule,
+    NgbModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: "AIzaSyCmaFJhLk3oackahjAyTT01bWDDRAZ8P5c",
       libraries: ["places"]
