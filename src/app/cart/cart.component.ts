@@ -4,6 +4,7 @@ import {Coordinates, Client, AddressData, Order} from "../models/coordinates";
 import {AppManager} from "../utils/app-manager";
 import {AngularFireDatabase, FirebaseListObservable, FirebaseObjectObservable} from 'angularfire2/database';
 import {environment} from "../../environments/environment";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-cart',
@@ -13,6 +14,14 @@ import {environment} from "../../environments/environment";
 
 })
 export class CartComponent implements OnInit {
+
+  prod: {
+    name: any;
+    price: any;
+    image: any;
+    description: any;
+  };
+  sub: any;
 
 
   private cd_addressData : AddressData;
@@ -24,7 +33,7 @@ export class CartComponent implements OnInit {
   orders : FirebaseListObservable<any>;
 
 
-  constructor(public _cartService: CartService, public db: AngularFireDatabase) {
+  constructor(public _cartService: CartService, public db: AngularFireDatabase, private route: ActivatedRoute) {
     this.client = new Client(
       "Ale",
       "05409012",
@@ -46,34 +55,38 @@ export class CartComponent implements OnInit {
 
 
   ngOnInit() {
+    // var a = `query {
+    //           searchOrders(term: "", status: in_progress) {
+    //             edges {
+    //               node {
+    //                 pk
+    //                 status
+    //                 driver {
+    //                   fullName
+    //                 }
+    //                 created
+    //                 currentDriverPosition {
+    //                   lat
+    //                   lng
+    //                   bearing
+    //                 }
+    //               }
+    //             }
+    //           }
+    //         }
+    //         `
+    // var json = JSON.stringify({
+    //   query: a
+    // });
+    // this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
+    //   console.log(response);
+    // }).catch(error => {
+    //   console.log(error);
+    // });
+    this.sub = this.route.params.subscribe(params => {
+      this.setProduct(params['id']);
 
-    var a = `query {
-              searchOrders(term: "", status: in_progress) {
-                edges {
-                  node {
-                    pk
-                    status
-                    driver {
-                      fullName
-                    }
-                    created
-                    currentDriverPosition {
-                      lat
-                      lng
-                      bearing
-                    }
-                  }
-                }
-              }
-            }
-            `
-    var json = JSON.stringify({
-      query: a
-    });
-    this._cartService.post(environment.loggiUrl, json.replace(/(\r\n|\n|\r)/gm,"")).then(response => {
-      console.log(response);
-    }).catch(error => {
-      console.log(error);
+      // In a real app: dispatch action to load the details here.
     });
   }
 
@@ -224,6 +237,23 @@ export class CartComponent implements OnInit {
         });
 
     return addressData;
+  }
+
+  public setProduct(id){
+    AppManager.instance.productsList.subscribe(snapshots => {
+      snapshots.forEach(prod => {
+        if(id === prod.$key){
+          this.prod = {
+            name: prod.name,
+            price: prod.price,
+            image: prod.image,
+            description: prod.description
+          }
+        }
+      });
+
+    });
+
   }
 
 }

@@ -23,13 +23,13 @@ import { CatalogComponent } from './catalog/catalog.component';
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
-  { path: 'cart', component: CartComponent},
+  { path: 'cart/:id', component: CartComponent},
   { path: '',
     redirectTo: 'home',
     pathMatch: 'full'
   },
   { path: 'home', component: HomeComponent},
-  { path: 'map/:id', component: MapComponent}
+  { path: 'map/:id', component: MapComponent},
   //{ path: '**', component: PageNotFoundComponent }
 ];
 
