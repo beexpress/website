@@ -1,15 +1,16 @@
-.bg-inverse {
+.navbar-default {
   background-color: #ffcd00 !important;
 }
-.navbar-brand {
+
+.navbar-default .navbar-nav li.dropdown a{
   color: #000;
+  font-size: 18px;
 }
 
-.nav-item .nav-link {
-  color: #000;
+.dropdown {
   padding-left:30px;
   padding-right:30px;
-
+  margin-top: 15px;
 }
 
 #logo{
