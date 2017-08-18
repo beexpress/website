@@ -15,8 +15,7 @@ import {AppManager} from "./utils/app-manager";
 import {FotoModule} from './foto/foto.module';
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
-import { AgmCoreModule } from '@agm/core';
-
+import { AgmCoreModule } from "angular2-google-maps/core";
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
@@ -46,7 +45,8 @@ const appRoutes: Routes = [
     FotoModule,
     HttpModule,
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyAt19EYB5ucFJvuftbdYtplhQrq60yP4BI'
+      apiKey: "AIzaSyCmaFJhLk3oackahjAyTT01bWDDRAZ8P5c",
+      libraries: ["places"]
     }),
     RouterModule.forRoot(
       appRoutes,
