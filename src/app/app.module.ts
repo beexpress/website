@@ -16,6 +16,7 @@ import {FotoModule} from './foto/foto.module';
 import { MapComponent } from './map/map.component';
 import { HomeComponent } from './home/home.component';
 import { AgmCoreModule } from "angular2-google-maps/core";
+import {DirectionsMapDirective} from "./map/map.directive";
 
 const appRoutes: Routes = [
   { path: 'orders', component: ListOrdersComponent },
@@ -25,7 +26,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   { path: 'home', component: HomeComponent},
-  { path: 'map', component: MapComponent}
+  { path: 'map/:id', component: MapComponent}
   //{ path: '**', component: PageNotFoundComponent }
 ];
 
@@ -38,7 +39,8 @@ const appRoutes: Routes = [
     FooterComponent,
     ListOrdersComponent,
     MapComponent,
-    HomeComponent
+    HomeComponent,
+    DirectionsMapDirective
   ],
   imports: [
     BrowserModule,
