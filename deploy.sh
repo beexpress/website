@@ -2,7 +2,7 @@
 
 # ----------------------
 # KUDU Deployment Script
-# Version: 0.2.2
+# Version: 1.0.15
 # ----------------------
 
 # Helpers
@@ -78,7 +78,7 @@ selectNodeVersion () {
       exitWithMessageOnError "getting node version failed"
     fi
     
-    if [[ -e "$DEPLOYMENT_TEMP/.tmp" ]]; then
+    if [[ -e "$DEPLOYMENT_TEMP/__npmVersion.tmp" ]]; then
       NPM_JS_PATH=`cat "$DEPLOYMENT_TEMP/__npmVersion.tmp"`
       exitWithMessageOnError "getting npm version failed"
     fi
@@ -109,7 +109,7 @@ fi
 # 2. Select node version
 selectNodeVersion
 
-# 3. Install NPM packages
+# 3. Install npm packages
 if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd "$DEPLOYMENT_TARGET"
   eval $NPM_CMD install --production
@@ -117,53 +117,5 @@ if [ -e "$DEPLOYMENT_TARGET/package.json" ]; then
   cd - > /dev/null
 fi
 
-# 4. Install Bower modules
-if [ -e "$DEPLOYMENT_TARGET/bower.json" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval ./node_modules/.bin/bower install
-  exitWithMessageOnError "bower failed"
-  cd - > /dev/null
-fi
-
-# 5. Install Composer modules
-if [ -e "$DEPLOYMENT_TARGET/composer.json" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval php composer.phar install
-  exitWithMessageOnError "composer failed"
-  cd - > /dev/null
-fi
-
-
-# 6. Run Gulp Task
-if [ -e "$DEPLOYMENT_TARGET/gulpfile.js" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval ./node_modules/.bin/gulp imagemin
-  exitWithMessageOnError "gulp failed"
-  cd - > /dev/null
-fi
-
-# 7. Run Grunt Task
-if [ -e "$DEPLOYMENT_TARGET/Gruntfile.js" ]; then
-  cd "$DEPLOYMENT_TARGET"
-  eval ./node_modules/.bin/grunt
-  exitWithMessageOnError "Grunt failed"
-  cd - > /dev/null
-fi
-
-#8. Unzip file. you can also use -d option to unzip files into particular folder
-cd "$DEPLOYMENT_TARGET"
-eval unzip -o Archive.zip
-cd - > /dev/null
-
-
 ##################################################################################################################################
-
-# Post deployment stub
-if [[ -n "$POST_DEPLOYMENT_ACTION" ]]; then
-  POST_DEPLOYMENT_ACTION=${POST_DEPLOYMENT_ACTION//\"}
-  cd "${POST_DEPLOYMENT_ACTION_DIR%\\*}"
-  "$POST_DEPLOYMENT_ACTION"
-  exitWithMessageOnError "post deployment action failed"
-fi
-
 echo "Finished successfully."
